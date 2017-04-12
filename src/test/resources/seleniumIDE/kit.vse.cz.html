@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://kit.vse.cz/" />
+<title>kit.vse</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">kit.vse</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Profil katedry</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>*Profil katedry*</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=s</td>
+	<td>4it478</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=input.submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=a[title=&quot;4KS – Řízení kvality softwaru (VS)&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>*4KS – Řízení kvality softwaru (VS)*</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeLocation</td>
+	<td>url</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectAndWait</td>
+	<td>css=select.text</td>
+	<td>label=regexp:-&gt;\sInformační zdroje</td>
+</tr>
+<tr>
+	<td>assertNotTitle</td>
+	<td>${url}</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>
