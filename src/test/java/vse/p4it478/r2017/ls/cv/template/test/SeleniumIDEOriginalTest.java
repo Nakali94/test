@@ -8,7 +8,7 @@ import static org.hamcrest.CoreMatchers.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.Select;
 
-import vse.p4it478.r2017.ls.cv.template.driver.ChromeDriverManager;
+import vse.p4it478.r2017.ls.cv.template.driver.DriverManager;
 
 @Ignore("It does not found option in selectbox and holds for 30s then.")
 public class SeleniumIDEOriginalTest {
@@ -19,7 +19,7 @@ public class SeleniumIDEOriginalTest {
 
   @Before
   public void setUp() throws Exception {
-	driver = ChromeDriverManager.create();
+	driver = DriverManager.createChromeDriver();
     baseUrl = "http://kit.vse.cz/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }

@@ -9,7 +9,6 @@ import java.util.Properties;
 
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
 /**
  * Wraps {@link WebDriver}, configuration and provides numerous helper methods
@@ -184,9 +183,6 @@ public class Browser {
 	}
 
 	public WebDriver getDriver() {
-		if (driver == null) {
-			driver = new FirefoxDriver();
-		}
 		return driver;
 	}
 

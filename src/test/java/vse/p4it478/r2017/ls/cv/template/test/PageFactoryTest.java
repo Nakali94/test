@@ -9,7 +9,7 @@ import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
-import vse.p4it478.r2017.ls.cv.template.driver.ChromeDriverManager;
+import vse.p4it478.r2017.ls.cv.template.driver.DriverManager;
 import vse.p4it478.r2017.ls.cv.template.pagefactory.page.CommonPage;
 import vse.p4it478.r2017.ls.cv.template.pagefactory.page.HomePage;
 import vse.p4it478.r2017.ls.cv.template.pagefactory.page.SearchResultPage;
@@ -20,7 +20,7 @@ public class PageFactoryTest {
 
 	@Before
 	public void setUp() throws Exception {
-		driver = ChromeDriverManager.create();
+		driver = DriverManager.createChromeDriver();
 	}
 
 	@Test

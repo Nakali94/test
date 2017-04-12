@@ -43,7 +43,7 @@ public class BrowserWatcher extends TestWatcher {
 		String name = getNameFromDescription(description);
 		logger.info(name + " FAILED");
 		
-		if (browser != null) {
+		if (browser != null && browser.getDriver() != null) {
 			try {
 				Files.createDirectories(resultsPath);
 			} catch (Exception e2) {

@@ -8,7 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 
-import vse.p4it478.r2017.ls.cv.template.driver.ChromeDriverManager;
+import vse.p4it478.r2017.ls.cv.template.driver.DriverManager;
 import vse.p4it478.r2017.ls.cv.template.pageobject.page.CommonPage;
 import vse.p4it478.r2017.ls.cv.template.pageobject.page.HomePage;
 import vse.p4it478.r2017.ls.cv.template.pageobject.page.SearchResultPage;
@@ -19,7 +19,7 @@ public class PageObjectTest {
 
 	@Before
 	public void setUp() throws Exception {
-		driver = ChromeDriverManager.create();
+		driver = DriverManager.createChromeDriver();
 	}
 
 	@Test

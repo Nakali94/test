@@ -11,7 +11,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
-import vse.p4it478.r2017.ls.cv.template.driver.ChromeDriverManager;
+import vse.p4it478.r2017.ls.cv.template.driver.DriverManager;
 
 public class SeleniumIDETest {
 
@@ -21,7 +21,7 @@ public class SeleniumIDETest {
 
 	@Before
 	public void setUp() throws Exception {
-		driver = ChromeDriverManager.create();
+		driver = DriverManager.createChromeDriver();
 		baseUrl = "http://kit.vse.cz/";
 	}
 
