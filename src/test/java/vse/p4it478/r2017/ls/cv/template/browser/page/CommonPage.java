@@ -16,18 +16,34 @@ public class CommonPage extends Page implements WithSearch {
 	@FindBy(css = "select.text")
 	protected WebElement quickNavigationEl;
 
-	@FindBy(css = "form[name=search]")
+	@FindBy(css = "form[id=hledani]")
 	protected WebElement searchModuleEl;
 
+	@FindBy(css = "a.kontakty-dpp")
+	protected WebElement menuItemElKontakty;
+	
+	
 	public String getFirstMenuItemTitle() {
 		return menuItemEl.getText().trim();
 	}
 
+	
 	public CommonPage goToFirstMenuItem() {
 		menuItemEl.click();
 		return browser.initPage(new CommonPage());
 	}
 
+	
+	public String getMenuItemElKontakty() {
+		return menuItemElKontakty.getText().trim();
+	}
+		
+	
+	public CommonPage goToMenuItemElKontakty() {
+		menuItemElKontakty.click();
+		return browser.initPage(new CommonPage());
+	}
+	
 	@Override
 	public SearchResultPage search(String text) {
 		return browser.initModule(new SearchModule(), searchModuleEl).search(text);
