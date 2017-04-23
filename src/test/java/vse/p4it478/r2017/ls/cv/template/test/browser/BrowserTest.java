@@ -3,7 +3,7 @@ package vse.p4it478.r2017.ls.cv.template.test.browser;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
-
+import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,6 +20,8 @@ import vse.p4it478.r2017.ls.cv.template.browser.page.CommonPage;
 import vse.p4it478.r2017.ls.cv.template.browser.page.HomePage;
 import vse.p4it478.r2017.ls.cv.template.browser.page.SearchResultPage;
 import vse.p4it478.r2017.ls.cv.template.driver.DriverManager;
+
+
 
 public class BrowserTest {
 
@@ -69,6 +71,25 @@ public class BrowserTest {
 		browser.getPage(CommonPage.class).quickNavigateByValue(value);
 		assertNotSame("URL is changed after quick navigation to " + value, url, browser.getDriver().getCurrentUrl());
 	}
+	
+	@Test
+	public void searchtest() throws Exception {
+		HomePage homePage = browser.loadPage(new HomePage());
+		String menuItemElKontakty = homePage.getMenuItemElKontakty();
+		homePage.goToMenuItemElKontakty();
+		assertTrue("Menu item Kontakty contains title " + menuItemElKontakty,
+				browser.getDriver().getTitle().contains(menuItemElKontakty));
+		SearchResultPage searchResultPage = browser.initLogic(new SearchLogic())
+				.search(browser.getProperty("searchTextDPP"));
+		String searchElKontakty = searchResultPage.getFirstResultTitleKontakty();
+		assertEquals(searchElKontakty, browser.getProperty("searchTextDPP"));
+		String url = browser.getDriver().getCurrentUrl();
+		searchResultPage.goToFirstResultKontakty();
+		assertNotSame("URL is changed after click to link" + url, browser.getDriver().getCurrentUrl());
+		
+	}
+
+
 
 	@Test
 	public void failedTest() throws Exception {

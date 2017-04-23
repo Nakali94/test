@@ -8,10 +8,10 @@ import vse.p4it478.r2017.ls.cv.template.browser.page.SearchResultPage;
 
 public class SearchModule extends Module {
 
-	@FindBy(id = "s")
+	@FindBy(id = "searchtext")
 	protected WebElement searchInputEl;
 
-	@FindBy(css = "input.submit")
+	@FindBy(css = "input.uzky")
 	protected WebElement searchButtonEl;
 
 	public SearchResultPage search(String text) {
