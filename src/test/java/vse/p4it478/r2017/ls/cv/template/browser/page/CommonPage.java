@@ -2,19 +2,17 @@ package vse.p4it478.r2017.ls.cv.template.browser.page;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.Select;
-
 import vse.p4it478.r2017.ls.cv.template.browser.Page;
 import vse.p4it478.r2017.ls.cv.template.browser.marker.WithSearch;
 import vse.p4it478.r2017.ls.cv.template.browser.module.SearchModule;
 
 public class CommonPage extends Page implements WithSearch {
 
-	@FindBy(css = "#leftcontent .leftcontent-main .menu li a")
+	/*@FindBy(css = "#leftcontent .leftcontent-main .menu li a")
 	protected WebElement menuItemEl;
 
 	@FindBy(css = "select.text")
-	protected WebElement quickNavigationEl;
+	protected WebElement quickNavigationEl;*/
 
 	@FindBy(css = "form[id=hledani]")
 	protected WebElement searchModuleEl;
@@ -23,7 +21,7 @@ public class CommonPage extends Page implements WithSearch {
 	protected WebElement menuItemElKontakty;
 	
 	
-	public String getFirstMenuItemTitle() {
+	/*public String getFirstMenuItemTitle() {
 		return menuItemEl.getText().trim();
 	}
 
@@ -31,7 +29,7 @@ public class CommonPage extends Page implements WithSearch {
 	public CommonPage goToFirstMenuItem() {
 		menuItemEl.click();
 		return browser.initPage(new CommonPage());
-	}
+	}*/
 
 	
 	public String getMenuItemElKontakty() {
@@ -49,9 +47,9 @@ public class CommonPage extends Page implements WithSearch {
 		return browser.initModule(new SearchModule(), searchModuleEl).search(text);
 	}
 
-	public void quickNavigateByValue(String value) {
+	/*public void quickNavigateByValue(String value) {
 		new Select(quickNavigationEl).selectByValue(value);
-	}
+	}*/
 
 	@Override
 	public String getUri() {

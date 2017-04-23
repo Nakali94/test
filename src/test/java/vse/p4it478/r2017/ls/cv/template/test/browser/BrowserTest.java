@@ -1,6 +1,5 @@
 package vse.p4it478.r2017.ls.cv.template.test.browser;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.*;
@@ -16,7 +15,6 @@ import ru.yandex.qatools.allure.annotations.Attachment;
 import vse.p4it478.r2017.ls.cv.template.browser.Browser;
 import vse.p4it478.r2017.ls.cv.template.browser.BrowserException;
 import vse.p4it478.r2017.ls.cv.template.browser.logic.SearchLogic;
-import vse.p4it478.r2017.ls.cv.template.browser.page.CommonPage;
 import vse.p4it478.r2017.ls.cv.template.browser.page.HomePage;
 import vse.p4it478.r2017.ls.cv.template.browser.page.SearchResultPage;
 import vse.p4it478.r2017.ls.cv.template.driver.DriverManager;
@@ -51,7 +49,7 @@ public class BrowserTest {
 		browser.setDriver(driver);
 	}
 
-	@Test
+	/*@Test
 	public void test() throws Exception {
 		HomePage homePage = browser.loadPage(new HomePage());
 		String firstMenuItemTitle = homePage.getFirstMenuItemTitle();
@@ -70,7 +68,7 @@ public class BrowserTest {
 		String value = browser.getProperty("quickNavigationValue");
 		browser.getPage(CommonPage.class).quickNavigateByValue(value);
 		assertNotSame("URL is changed after quick navigation to " + value, url, browser.getDriver().getCurrentUrl());
-	}
+	}*/
 	
 	@Test
 	public void searchtest() throws Exception {
@@ -91,14 +89,14 @@ public class BrowserTest {
 
 
 
-	@Test
+	/*@Test
 	public void failedTest() throws Exception {
 		HomePage homePage = browser.loadPage(new HomePage());
 		String firstMenuItemTitle = homePage.getFirstMenuItemTitle();
 		homePage.goToFirstMenuItem();
 		assertFalse("First menu item page does not contain title " + firstMenuItemTitle,
 				browser.getDriver().getTitle().contains(firstMenuItemTitle));
-	}
+	}*/
 
 	@After
 	public void tearDown() throws Exception {
