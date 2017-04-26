@@ -2,6 +2,12 @@ package vse.p4it478.r2017.ls.cv.template.test.browser;
 
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
@@ -15,8 +21,11 @@ import ru.yandex.qatools.allure.annotations.Attachment;
 import vse.p4it478.r2017.ls.cv.template.browser.Browser;
 import vse.p4it478.r2017.ls.cv.template.browser.BrowserException;
 import vse.p4it478.r2017.ls.cv.template.browser.logic.SearchLogic;
+import vse.p4it478.r2017.ls.cv.template.browser.logic.SpojeniLogic;
+import vse.p4it478.r2017.ls.cv.template.browser.module.SpojeniModule;
 import vse.p4it478.r2017.ls.cv.template.browser.page.HomePage;
 import vse.p4it478.r2017.ls.cv.template.browser.page.SearchResultPage;
+import vse.p4it478.r2017.ls.cv.template.browser.page.SpojeniResultPage;
 import vse.p4it478.r2017.ls.cv.template.driver.DriverManager;
 
 
@@ -48,27 +57,6 @@ public class BrowserTest {
 		}
 		browser.setDriver(driver);
 	}
-
-	/*@Test
-	public void test() throws Exception {
-		HomePage homePage = browser.loadPage(new HomePage());
-		String firstMenuItemTitle = homePage.getFirstMenuItemTitle();
-		homePage.goToFirstMenuItem();
-		assertTrue("First menu item page contains title " + firstMenuItemTitle,
-				browser.getDriver().getTitle().contains(firstMenuItemTitle));
-
-		SearchResultPage searchResultPage = browser.initLogic(new SearchLogic())
-				.search(browser.getProperty("searchText"));
-		String firstSearchResultTitle = searchResultPage.getFirstResultTitle();
-		searchResultPage.goToFirstResult();
-		assertTrue("First search result page contains title " + firstSearchResultTitle,
-				browser.getDriver().getTitle().contains(firstSearchResultTitle));
-
-		String url = browser.getDriver().getCurrentUrl();
-		String value = browser.getProperty("quickNavigationValue");
-		browser.getPage(CommonPage.class).quickNavigateByValue(value);
-		assertNotSame("URL is changed after quick navigation to " + value, url, browser.getDriver().getCurrentUrl());
-	}*/
 	
 	@Test
 	public void searchtest() throws Exception {
@@ -86,7 +74,46 @@ public class BrowserTest {
 		assertNotSame("URL is changed after click to link" + url, browser.getDriver().getCurrentUrl());
 		
 	}
-
+	
+	@Test
+	public void vyhledavaniSpojeniTest() throws Exception {
+		HomePage homePage = browser.loadPage(new HomePage());
+		SpojeniModule spojeniModule = browser.initModule(new SpojeniModule(), homePage.getSpojeniModulEl());
+		SpojeniResultPage spojeniResultPage = spojeniModule.search(browser.getProperty("odkud"),browser.getProperty("kam"), browser.getProperty("cas"));
+		assertTrue("Vyhledavani odpovida zadane trase " + browser.getProperty("odkud") +" - " + browser.getProperty("kam"),
+				spojeniResultPage.getH1().contains(browser.getProperty("odkud")+" - "+browser.getProperty("kam")));		
+	}
+	
+	@Test
+	public void naseptavacSpojeniTest() throws Exception {
+		HomePage homePage = browser.loadPage(new HomePage());
+		SpojeniModule spojeniModule = browser.initModule(new SpojeniModule(), homePage.getSpojeniModulEl());
+		assertTrue("V naseptavaci se zobrazila vyhledavana polozka " + browser.getProperty("odkud"),
+				spojeniModule.getNaseptavacResult(browser.getProperty("odkud")).contains(browser.getProperty("odkud")));
+	}
+	
+	@Test
+	public void prohoditSpojeniTest() throws Exception {
+		HomePage homePage = browser.loadPage(new HomePage());
+		SpojeniModule spojeniModule = browser.initModule(new SpojeniModule(), homePage.getSpojeniModulEl());
+		spojeniModule.clickVyhledavaniSpojeniProhodit(browser.getProperty("odkud"), browser.getProperty("kam"));	
+		assertFalse("Po prohozeni neni v odkud "+browser.getProperty("odkud"),
+				spojeniModule.getVyhledavaniSpojeniOdkud().contains(browser.getProperty("odkud")));
+		assertFalse("Po prohozeni neni v kam "+browser.getProperty("kam"),
+				spojeniModule.getVyhledavaniSpojeniKam().contains(browser.getProperty("kam")));
+	}
+	
+	@Test
+	public void spojeniDatumTest() throws Exception {
+		DateFormat df = new SimpleDateFormat("d.M.yyyy");
+		Date dateobj = new Date();
+		System.out.println(df.format(dateobj));
+		HomePage homePage = browser.loadPage(new HomePage());
+		SpojeniModule spojeniModule = browser.initModule(new SpojeniModule(), homePage.getSpojeniModulEl());	
+		System.out.println(spojeniModule.getVyhledavaniSpojeniDatum());
+		assertEquals("Převyplněné datum je dnešní",
+				spojeniModule.getVyhledavaniSpojeniDatum(), df.format(dateobj));
+	}
 
 
 	/*@Test
