@@ -11,34 +11,34 @@ import vse.p4it478.r2017.ls.cv.template.browser.page.RegisterPage;
 
 public class RegisterModule extends Module{
 	
-	@FindBy(css = "input[id=login]")
+	@FindBy(id = "login")
 	protected WebElement nicknameFld;
 	
-	@FindBy(css = "input[id=email]")
+	@FindBy(id = "email")
 	protected WebElement emailFld;
 	
-	@FindBy(css = "input[id=phone]")
+	@FindBy(id = "phone")
 	protected WebElement phoneFld;
 	
-	@FindBy(css = "input[id=password]")
+	@FindBy(id = "password")
 	protected WebElement passwordFld;
 	
-	@FindBy(css = "input[id=pwwsd-a]")
+	@FindBy(id = "pwwsd-a")
 	protected WebElement pwwsdFld;
 	
-	@FindBy(css = "input[name=interest[newsletter]")
+	@FindBy(css = "#form > div > fieldset:nth-child(5) > p:nth-child(3) > label > input[type=\"checkbox\"]")
 	protected WebElement newsletter;
 	
-	@FindBy(css = "input[name=channel[email]")
+	@FindBy(css = "#form > div > fieldset:nth-child(6) > p > label > input[type=\"checkbox\"]")
 	protected WebElement kanalEmail;
 	
-	@FindBy(css = "input[name=bbz[sms]")
+	@FindBy(css = "#form > div > fieldset:nth-child(7) > p > label > input[type=\"checkbox\"]")
 	protected WebElement kanalSms;
 	
-	@FindBy(css = "input[id=conditions")
+	@FindBy(id = "conditions")
 	protected WebElement obchPodm;
 	
-	@FindBy(css = "input[name=__event_onclick[btn_submit]")
+	@FindBy(css = "#form > div > p > input")
 	protected WebElement btnRegistrovat;
 	
 	public RegisterPage register(String nick, String email, String tel, String heslo, String hesloznov) {

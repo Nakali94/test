@@ -81,7 +81,7 @@ public class BrowserTest {
 	@Test
 	public void vyhledavaniSpojeniTest() throws Exception {
 		HomePage homePage = browser.loadPage(new HomePage());
-		SpojeniModule spojeniModule = browser.initModule(new SpojeniModule(), homePage.getSpojeniModulEl());
+		SpojeniModule spojeniModule = browser.initModule(new SpojeniModule()/*, homePage.getSpojeniModulEl()*/);
 		SpojeniResultPage spojeniResultPage = spojeniModule.search(browser.getProperty("odkud"),browser.getProperty("kam"), browser.getProperty("cas"));
 		assertTrue("Vyhledavani odpovida zadane trase " + browser.getProperty("odkud") +" - " + browser.getProperty("kam"),
 				spojeniResultPage.getH1().contains(browser.getProperty("odkud")+" - "+browser.getProperty("kam")));		
@@ -90,7 +90,7 @@ public class BrowserTest {
 	@Test
 	public void naseptavacSpojeniTest() throws Exception {
 		HomePage homePage = browser.loadPage(new HomePage());
-		SpojeniModule spojeniModule = browser.initModule(new SpojeniModule(), homePage.getSpojeniModulEl());
+		SpojeniModule spojeniModule = browser.initModule(new SpojeniModule()/*, homePage.getSpojeniModulEl()*/);
 		assertTrue("V naseptavaci se zobrazila vyhledavana polozka " + browser.getProperty("odkud"),
 				spojeniModule.getNaseptavacResult(browser.getProperty("odkud")).contains(browser.getProperty("odkud")));
 	}
@@ -98,7 +98,7 @@ public class BrowserTest {
 	@Test
 	public void prohoditSpojeniTest() throws Exception {
 		HomePage homePage = browser.loadPage(new HomePage());
-		SpojeniModule spojeniModule = browser.initModule(new SpojeniModule(), homePage.getSpojeniModulEl());
+		SpojeniModule spojeniModule = browser.initModule(new SpojeniModule()/*, homePage.getSpojeniModulEl()*/);
 		spojeniModule.clickVyhledavaniSpojeniProhodit(browser.getProperty("odkud"), browser.getProperty("kam"));	
 		assertFalse("Po prohozeni neni v odkud "+browser.getProperty("odkud"),
 				spojeniModule.getVyhledavaniSpojeniOdkud().contains(browser.getProperty("odkud")));
@@ -122,21 +122,11 @@ public class BrowserTest {
 	  public void testRegistraceNegativni() throws Exception {
 		HomePage homePage = browser.loadPage(new HomePage());
 		homePage.goToRegistration();
-		RegisterModule registerModule = browser.initModule(new RegisterModule(), homePage.getRegistrationLink());
+		RegisterModule registerModule = browser.initModule(new RegisterModule());
 		RegisterPage registerPage = registerModule.register("aaatester", "tester@test.cz", "765567765", "Password543", "heslo");
-		assertTrue("Na stránce je zobrazena hláška o nevalidním heslu: ", registerPage.getRegisterErrorText().contains("Pole \"Heslo\" nebylo možné ověřit."));
-		  
+		assertTrue("Na stránce je zobrazena hláška o nevalidním heslu: ", registerPage.getRegisterErrorText().contains("Pole \"Heslo\" nebylo možné ověřit."));  
 	  }
 
-
-	/*@Test
-	public void failedTest() throws Exception {
-		HomePage homePage = browser.loadPage(new HomePage());
-		String firstMenuItemTitle = homePage.getFirstMenuItemTitle();
-		homePage.goToFirstMenuItem();
-		assertFalse("First menu item page does not contain title " + firstMenuItemTitle,
-				browser.getDriver().getTitle().contains(firstMenuItemTitle));
-	}*/
 
 	@After
 	public void tearDown() throws Exception {
