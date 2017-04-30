@@ -122,10 +122,9 @@ public class BrowserTest {
 	  public void testRegistraceNegativni() throws Exception {
 		HomePage homePage = browser.loadPage(new HomePage());
 		homePage.goToRegistration();
-		
 		RegisterModule registerModule = browser.initModule(new RegisterModule(), homePage.getRegistrationLink());
-		RegisterPage registerPage = registerPage.register("aaatester", "tester@test.cz", "765567765", "Password543", "heslo");
-		assertEquals("Na stránce je zobrazena hláška o nevalidním heslu: " + RegisterPage.getRegisterError();		
+		RegisterPage registerPage = registerModule.register("aaatester", "tester@test.cz", "765567765", "Password543", "heslo");
+		assertTrue("Na stránce je zobrazena hláška o nevalidním heslu: ", registerPage.getRegisterErrorText().contains("Pole \"Heslo\" nebylo možné ověřit."));
 		  
 	  }
 
