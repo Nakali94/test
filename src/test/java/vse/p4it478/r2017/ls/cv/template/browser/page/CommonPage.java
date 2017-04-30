@@ -3,15 +3,17 @@ package vse.p4it478.r2017.ls.cv.template.browser.page;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import vse.p4it478.r2017.ls.cv.template.browser.Page;
+import vse.p4it478.r2017.ls.cv.template.browser.marker.WithLogin;
 import vse.p4it478.r2017.ls.cv.template.browser.marker.WithSearch;
 import vse.p4it478.r2017.ls.cv.template.browser.marker.WithSpojeniSearch;
 import vse.p4it478.r2017.ls.cv.template.browser.marker.Register;
+import vse.p4it478.r2017.ls.cv.template.browser.module.LoginModule;
 import vse.p4it478.r2017.ls.cv.template.browser.module.RegisterModule;
 import vse.p4it478.r2017.ls.cv.template.browser.module.SearchModule;
 import vse.p4it478.r2017.ls.cv.template.browser.module.SpojeniModule;
 
 
-public class CommonPage extends Page implements WithSearch, WithSpojeniSearch, Register {
+public class CommonPage extends Page implements WithLogin, WithSearch, WithSpojeniSearch, Register {
 
 	/*@FindBy(css = "#leftcontent .leftcontent-main .menu li a")
 	protected WebElement menuItemEl;
@@ -31,6 +33,8 @@ public class CommonPage extends Page implements WithSearch, WithSpojeniSearch, R
 	@FindBy(css = "a[title=\"Zaregistrujte se a nastavte si stránky\"]")
 	protected	WebElement linkRegistrace;
 	
+	@FindBy(css = "a[title=\"Přihlaste se\"]")
+	protected WebElement loginLink;
 	
 	/*public String getFirstMenuItemTitle() {
 		return menuItemEl.getText().trim();
@@ -86,6 +90,25 @@ public class CommonPage extends Page implements WithSearch, WithSpojeniSearch, R
 	public WebElement getRegistrationLink(){
 		return linkRegistrace;
 	
+	}
+	
+	public CommonPage goToPrihlaseni() {
+		linkRegistrace.click();
+		return browser.initPage(new RegisterPage());
+	}
+	
+	@Override
+	public LoginCompletePage login(String username, String password) {
+		return browser.initModule(new LoginModule(), loginLink).login(username, password);
+	}
+	
+	public WebElement getLoginLink() {
+		return loginLink;
+	}
+	
+	public CommonPage goToLogin() {
+		loginLink.click();
+		return browser.initPage(new LoginCompletePage());
 	}
 
 	/*public void quickNavigateByValue(String value) {

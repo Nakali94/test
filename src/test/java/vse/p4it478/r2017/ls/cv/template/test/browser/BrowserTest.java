@@ -23,9 +23,11 @@ import vse.p4it478.r2017.ls.cv.template.browser.Browser;
 import vse.p4it478.r2017.ls.cv.template.browser.BrowserException;
 import vse.p4it478.r2017.ls.cv.template.browser.logic.SearchLogic;
 import vse.p4it478.r2017.ls.cv.template.browser.logic.SpojeniLogic;
+import vse.p4it478.r2017.ls.cv.template.browser.module.LoginModule;
 import vse.p4it478.r2017.ls.cv.template.browser.module.RegisterModule;
 import vse.p4it478.r2017.ls.cv.template.browser.module.SpojeniModule;
 import vse.p4it478.r2017.ls.cv.template.browser.page.HomePage;
+import vse.p4it478.r2017.ls.cv.template.browser.page.LoginCompletePage;
 import vse.p4it478.r2017.ls.cv.template.browser.page.RegisterPage;
 import vse.p4it478.r2017.ls.cv.template.browser.page.SearchResultPage;
 import vse.p4it478.r2017.ls.cv.template.browser.page.SpojeniResultPage;
@@ -89,7 +91,7 @@ public class BrowserTest {
 	
 	@Test
 	public void naseptavacSpojeniTest() throws Exception {
-		HomePage homePage = browser.loadPage(new HomePage());
+		HomePage homePage = browser.loadPage(new HomePage()); 
 		SpojeniModule spojeniModule = browser.initModule(new SpojeniModule()/*, homePage.getSpojeniModulEl()*/);
 		assertTrue("V naseptavaci se zobrazila vyhledavana polozka " + browser.getProperty("odkud"),
 				spojeniModule.getNaseptavacResult(browser.getProperty("odkud")).contains(browser.getProperty("odkud")));
@@ -97,7 +99,7 @@ public class BrowserTest {
 	
 	@Test
 	public void prohoditSpojeniTest() throws Exception {
-		HomePage homePage = browser.loadPage(new HomePage());
+		HomePage homePage = browser.loadPage(new HomePage()); 
 		SpojeniModule spojeniModule = browser.initModule(new SpojeniModule()/*, homePage.getSpojeniModulEl()*/);
 		spojeniModule.clickVyhledavaniSpojeniProhodit(browser.getProperty("odkud"), browser.getProperty("kam"));	
 		assertFalse("Po prohozeni neni v odkud "+browser.getProperty("odkud"),
@@ -127,6 +129,16 @@ public class BrowserTest {
 		assertTrue("Na stránce je zobrazena hláška o nevalidním heslu: ", registerPage.getRegisterErrorText().contains("Pole \"Heslo\" nebylo možné ověřit."));  
 	  }
 
+	@Test
+	public void prihlaseniTest() throws Exception {
+		HomePage homePage = browser.loadPage(new HomePage());
+		homePage.goToLogin();
+		String url = browser.getDriver().getCurrentUrl();
+		LoginModule loginModule = browser.initModule(new LoginModule());
+		LoginCompletePage loginCompletePage = loginModule.login(browser.getProperty("username"), browser.getProperty("password"));
+		assertNotSame("URL is changed after successful login:" + url, browser.getDriver().getCurrentUrl());	
+		assertEquals("My profile appears after successful login", browser.getProperty("myProfile"), loginCompletePage.getProfile());
+	}
 
 	@After
 	public void tearDown() throws Exception {
