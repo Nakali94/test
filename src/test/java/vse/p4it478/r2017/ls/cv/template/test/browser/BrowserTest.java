@@ -12,6 +12,7 @@ import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -22,8 +23,10 @@ import vse.p4it478.r2017.ls.cv.template.browser.Browser;
 import vse.p4it478.r2017.ls.cv.template.browser.BrowserException;
 import vse.p4it478.r2017.ls.cv.template.browser.logic.SearchLogic;
 import vse.p4it478.r2017.ls.cv.template.browser.logic.SpojeniLogic;
+import vse.p4it478.r2017.ls.cv.template.browser.module.RegisterModule;
 import vse.p4it478.r2017.ls.cv.template.browser.module.SpojeniModule;
 import vse.p4it478.r2017.ls.cv.template.browser.page.HomePage;
+import vse.p4it478.r2017.ls.cv.template.browser.page.RegisterPage;
 import vse.p4it478.r2017.ls.cv.template.browser.page.SearchResultPage;
 import vse.p4it478.r2017.ls.cv.template.browser.page.SpojeniResultPage;
 import vse.p4it478.r2017.ls.cv.template.driver.DriverManager;
@@ -114,6 +117,17 @@ public class BrowserTest {
 		assertEquals("Převyplněné datum je dnešní",
 				spojeniModule.getVyhledavaniSpojeniDatum(), df.format(dateobj));
 	}
+	
+	@Test
+	  public void testRegistraceNegativni() throws Exception {
+		HomePage homePage = browser.loadPage(new HomePage());
+		homePage.goToRegistration();
+		
+		RegisterModule registerModule = browser.initModule(new RegisterModule(), homePage.getRegistrationLink());
+		RegisterPage registerPage = registerPage.register("aaatester", "tester@test.cz", "765567765", "Password543", "heslo");
+		assertEquals("Na stránce je zobrazena hláška o nevalidním heslu: " + RegisterPage.getRegisterError();		
+		  
+	  }
 
 
 	/*@Test
