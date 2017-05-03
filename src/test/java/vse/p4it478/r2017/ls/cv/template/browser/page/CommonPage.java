@@ -2,11 +2,12 @@ package vse.p4it478.r2017.ls.cv.template.browser.page;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
 import vse.p4it478.r2017.ls.cv.template.browser.Page;
+import vse.p4it478.r2017.ls.cv.template.browser.marker.Register;
 import vse.p4it478.r2017.ls.cv.template.browser.marker.WithLogin;
 import vse.p4it478.r2017.ls.cv.template.browser.marker.WithSearch;
 import vse.p4it478.r2017.ls.cv.template.browser.marker.WithSpojeniSearch;
-import vse.p4it478.r2017.ls.cv.template.browser.marker.Register;
 import vse.p4it478.r2017.ls.cv.template.browser.module.LoginModule;
 import vse.p4it478.r2017.ls.cv.template.browser.module.RegisterModule;
 import vse.p4it478.r2017.ls.cv.template.browser.module.SearchModule;
@@ -35,6 +36,15 @@ public class CommonPage extends Page implements WithLogin, WithSearch, WithSpoje
 	
 	@FindBy(css = "a[title=\"Přihlaste se\"]")
 	protected WebElement loginLink;
+	
+	@FindBy(css = "div[id=tools] > h2.second")
+	protected WebElement timetablesLink;
+	
+	@FindBy(css = "#jr-rozcestnik > li:nth-child(1) > a")
+	protected WebElement metroLink;
+	
+	@FindBy(css = "#jr-rozcestnik > li:nth-child(2) > a")
+	protected WebElement busLink;
 	
 	/*public String getFirstMenuItemTitle() {
 		return menuItemEl.getText().trim();
@@ -109,6 +119,20 @@ public class CommonPage extends Page implements WithLogin, WithSearch, WithSpoje
 	public CommonPage goToLogin() {
 		loginLink.click();
 		return browser.initPage(new LoginCompletePage());
+	}
+	
+	public LinePage goToMetro() {
+		timetablesLink.click();
+		String href = metroLink.getAttribute("href");
+		browser.getDriver().get(href);
+		return browser.initPage(new LinePage());
+	}
+	
+	public LinePage goToBus() {
+		timetablesLink.click();
+		String href = busLink.getAttribute("href");
+		browser.getDriver().get(href);
+		return browser.initPage(new LinePage());
 	}
 
 	/*public void quickNavigateByValue(String value) {

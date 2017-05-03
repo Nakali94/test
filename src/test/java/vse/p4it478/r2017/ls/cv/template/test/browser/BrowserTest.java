@@ -1,18 +1,17 @@
 package vse.p4it478.r2017.ls.cv.template.test.browser;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
-import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -22,11 +21,12 @@ import ru.yandex.qatools.allure.annotations.Attachment;
 import vse.p4it478.r2017.ls.cv.template.browser.Browser;
 import vse.p4it478.r2017.ls.cv.template.browser.BrowserException;
 import vse.p4it478.r2017.ls.cv.template.browser.logic.SearchLogic;
-import vse.p4it478.r2017.ls.cv.template.browser.logic.SpojeniLogic;
+import vse.p4it478.r2017.ls.cv.template.browser.module.LineModule;
 import vse.p4it478.r2017.ls.cv.template.browser.module.LoginModule;
 import vse.p4it478.r2017.ls.cv.template.browser.module.RegisterModule;
 import vse.p4it478.r2017.ls.cv.template.browser.module.SpojeniModule;
 import vse.p4it478.r2017.ls.cv.template.browser.page.HomePage;
+import vse.p4it478.r2017.ls.cv.template.browser.page.LinePage;
 import vse.p4it478.r2017.ls.cv.template.browser.page.LoginCompletePage;
 import vse.p4it478.r2017.ls.cv.template.browser.page.RegisterPage;
 import vse.p4it478.r2017.ls.cv.template.browser.page.SearchResultPage;
@@ -138,6 +138,32 @@ public class BrowserTest {
 		LoginCompletePage loginCompletePage = loginModule.login(browser.getProperty("username"), browser.getProperty("password"));
 		assertNotSame("URL is changed after successful login:" + url, browser.getDriver().getCurrentUrl());	
 		assertEquals("My profile appears after successful login", browser.getProperty("myProfile"), loginCompletePage.getProfile());
+	}
+	
+	@Test
+	public void lineMetroTest() throws Exception {
+		HomePage homePage = browser.loadPage(new HomePage());
+		String url = browser.getDriver().getCurrentUrl();
+		homePage.goToMetro();
+		LineModule metroModule = browser.initModule(new LineModule());
+		LinePage metroPage = metroModule.getLinePage();
+		assertNotSame("URL is changed after page change: ", url, browser.getDriver().getCurrentUrl());	
+		assertEquals("Metro page correctly loaded: ", browser.getProperty("metroExpectedTitle"), metroPage.getTitle());
+		assertNotSame("An incorrect page has not been loaded:", browser.getProperty("busExpectedTitle"), metroPage.getTitle());
+		assertEquals("I can get to the A line timetable: ", browser.getProperty("metroLineExpected"), metroPage.getFirstLine());
+	}
+	
+	@Test
+	public void lineBusTest() throws Exception {
+		HomePage homePage = browser.loadPage(new HomePage());
+		String url = browser.getDriver().getCurrentUrl();
+		homePage.goToBus();
+		LineModule busModule = browser.initModule(new LineModule());
+		LinePage busPage = busModule.getLinePage();
+		assertNotSame("URL is changed after page change: ", url, browser.getDriver().getCurrentUrl());	
+		assertEquals("Bus page correctly loaded: ", browser.getProperty("busExpectedTitle"), busPage.getTitle());
+		assertNotSame("An incorrect page has not been loaded:", browser.getProperty("metroExpectedTitle"), busPage.getTitle());
+		assertEquals("I can get to the 100 bus line timetable: ", browser.getProperty("busLineExpected"), busPage.getFirstLine());
 	}
 
 	@After
