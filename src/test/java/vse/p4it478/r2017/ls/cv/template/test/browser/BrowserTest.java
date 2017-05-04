@@ -1,13 +1,10 @@
 package vse.p4it478.r2017.ls.cv.template.test.browser;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertTrue;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
@@ -33,6 +30,7 @@ import vse.p4it478.r2017.ls.cv.template.browser.page.SearchResultPage;
 import vse.p4it478.r2017.ls.cv.template.browser.page.SpojeniResultPage;
 import vse.p4it478.r2017.ls.cv.template.driver.DriverManager;
 
+import static org.junit.Assert.*;
 
 
 public class BrowserTest {
@@ -166,6 +164,19 @@ public class BrowserTest {
 		assertEquals("I can get to the 100 bus line timetable: ", browser.getProperty("busLineExpected"), busPage.getFirstLine());
 	}
 
+    @Test
+	public void menuTest() throws Exception {
+		HomePage page = browser.loadPage(new HomePage());
+		List<String> tabTitles = new ArrayList<>();
+		int numOfTabs = page.getAllTabPanelButtons().size();
+
+		page.getAllTabPanelButtons()
+				.forEach(tab -> {
+					tab.click();
+					tabTitles.add(page.getTabContentTitle());
+				});
+		assertEquals(numOfTabs, tabTitles.size());
+	}
 	@After
 	public void tearDown() throws Exception {
 		if (browser != null) {
