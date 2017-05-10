@@ -12,8 +12,11 @@ import org.junit.Test;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.BrowserType;
 
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.yandex.qatools.allure.annotations.Attachment;
 import vse.p4it478.r2017.ls.cv.template.browser.Browser;
 import vse.p4it478.r2017.ls.cv.template.browser.BrowserException;
@@ -22,12 +25,7 @@ import vse.p4it478.r2017.ls.cv.template.browser.module.LineModule;
 import vse.p4it478.r2017.ls.cv.template.browser.module.LoginModule;
 import vse.p4it478.r2017.ls.cv.template.browser.module.RegisterModule;
 import vse.p4it478.r2017.ls.cv.template.browser.module.SpojeniModule;
-import vse.p4it478.r2017.ls.cv.template.browser.page.HomePage;
-import vse.p4it478.r2017.ls.cv.template.browser.page.LinePage;
-import vse.p4it478.r2017.ls.cv.template.browser.page.LoginCompletePage;
-import vse.p4it478.r2017.ls.cv.template.browser.page.RegisterPage;
-import vse.p4it478.r2017.ls.cv.template.browser.page.SearchResultPage;
-import vse.p4it478.r2017.ls.cv.template.browser.page.SpojeniResultPage;
+import vse.p4it478.r2017.ls.cv.template.browser.page.*;
 import vse.p4it478.r2017.ls.cv.template.driver.DriverManager;
 
 import static org.junit.Assert.*;
@@ -168,13 +166,15 @@ public class BrowserTest {
 	public void menuTest() throws Exception {
 		HomePage page = browser.loadPage(new HomePage());
 		List<String> tabTitles = new ArrayList<>();
-		int numOfTabs = page.getAllTabPanelButtons().size();
+		int numOfTabs = page.getFirstMenuItems().size();
 
-		page.getAllTabPanelButtons()
-				.forEach(tab -> {
-					tab.click();
-					tabTitles.add(page.getTabContentTitle());
-				});
+		for (int i = 0; i < numOfTabs; i++) {
+			CommonPage cpage = browser.initPage(new CommonPage());
+			WebElement tab = cpage.getFirstMenuItems().get(i);
+			new WebDriverWait(browser.getDriver(), 2).until(ExpectedConditions.elementToBeClickable(tab));
+			tabTitles.add(tab.getText().trim());
+			tab.click();
+		}
 		assertEquals(numOfTabs, tabTitles.size());
 	}
 	@After

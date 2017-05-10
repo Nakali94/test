@@ -1,5 +1,6 @@
 package vse.p4it478.r2017.ls.cv.template.browser.page;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -12,6 +13,8 @@ import vse.p4it478.r2017.ls.cv.template.browser.module.LoginModule;
 import vse.p4it478.r2017.ls.cv.template.browser.module.RegisterModule;
 import vse.p4it478.r2017.ls.cv.template.browser.module.SearchModule;
 import vse.p4it478.r2017.ls.cv.template.browser.module.SpojeniModule;
+
+import java.util.List;
 
 
 public class CommonPage extends Page implements WithLogin, WithSearch, WithSpojeniSearch, Register {
@@ -45,23 +48,41 @@ public class CommonPage extends Page implements WithLogin, WithSearch, WithSpoje
 	
 	@FindBy(css = "#jr-rozcestnik > li:nth-child(2) > a")
 	protected WebElement busLink;
-	
-	/*public String getFirstMenuItemTitle() {
-		return menuItemEl.getText().trim();
+
+	@FindBy(css = "#menu > ul")
+	private WebElement tabPanel;
+
+	@FindBy(css = "#menu > ul > li > a")
+	private List<WebElement> firstMenuItems;
+
+	@FindBy(xpath = "//*[@id=\"menu\"]")
+	private WebElement tabContent;
+
+	public List<WebElement> getAllTabPanelButtons() {
+		return tabPanel.findElements(By.cssSelector(" > li"));
 	}
 
-	
-	public CommonPage goToFirstMenuItem() {
-		menuItemEl.click();
-		return browser.initPage(new CommonPage());
-	}*/
+	public List<WebElement> getFirstMenuItems() {
+		return firstMenuItems;
+	}
 
-	
+	public String getTabContentTitle() {
+		return tabContent.findElement(By.cssSelector(" > a")).getText().trim();
+	}
+
+	public String getFirstMenuItemTitle(int i) {
+		return firstMenuItems.get(i).getText().trim();
+	}
+
+	public CommonPage goToFirstMenuItem(int i) {
+		firstMenuItems.get(i).click();
+		return browser.initPage(new CommonPage());
+	}
+
 	public String getMenuItemElKontakty() {
 		return menuItemElKontakty.getText().trim();
 	}
-		
-	
+
 	public CommonPage goToMenuItemElKontakty() {
 		menuItemElKontakty.click();
 		return browser.initPage(new CommonPage());
